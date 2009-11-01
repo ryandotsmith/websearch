@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.dom4j.DocumentException;
 import org.dom4j.tree.DefaultDocument;
 import junit.framework.TestCase;
@@ -20,7 +23,6 @@ public class PageTest extends TestCase {
 		fail("Should raise an exception");
 	}
 	public void testThatTheConstructorHasReadTheFile(){
-		testPage.treeWalk();
 		assertEquals(1,testPage.getList().count("Title"));
 	}
 	public void testPage() {
@@ -39,9 +41,26 @@ public class PageTest extends TestCase {
 		Page anotherTestPage = new Page("test.html");
 		anotherTestPage.getList().insert("nice");
 		assertEquals(1,anotherTestPage.getList().count("nice"));
-		Page.searchTearm = "nice";
+		Page.searchTerm = "nice";
 		assertEquals(1,testPage.compareTo(anotherTestPage));
 		assertEquals(-1,anotherTestPage.compareTo(testPage));
+	}
+	public void testTheSortingOfPages() throws DocumentException{
+		Page pageOne   = new Page("test.html");
+		Page pageTwo   = new Page("test.html");
+		Page pageThree = new Page("test.html");
+		pageThree.getList().insert("Title");
+		pageThree.getList().insert("Title");
+		assertEquals(3, pageThree.getList().count("Title") );
+		ArrayList array = new ArrayList();
+		array.add(pageOne);
+		array.add(pageThree);
+		array.add(pageTwo);
+		Page.searchTerm = "Title";
+		assertEquals( -1, pageOne.compareTo(pageThree));
+		assertEquals( 0, pageOne.compareTo(pageTwo));
+		Collections.sort(array, new PageComparator());
+		assertEquals( pageThree, array.get(0) );
 	}
 
 }

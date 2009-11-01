@@ -1,4 +1,5 @@
 import java.io.File;
+
 import java.util.StringTokenizer;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
@@ -8,7 +9,7 @@ import org.dom4j.io.SAXReader;
 
 public class Page implements Comparable {
 
-	public static String searchTearm;
+	public static String searchTerm;
 	private WordList list;
 	private Document document;
 	
@@ -17,23 +18,25 @@ public class Page implements Comparable {
 		File file = new File(fileName);
 		SAXReader xmlReader = new SAXReader();
 		this.document = xmlReader.read(file);
+		populate();
 	}
 	public WordList getList() 		{return this.list;}
 	public Document getDocument() 	{return this.document;}
 	public int compareTo(Object anotherPage) throws ClassCastException {
 		if (!(anotherPage instanceof Page))
 	      throw new ClassCastException("A Page object expected.");
-	    int anotherPageRank = ((Page) anotherPage).getList().count(Page.searchTearm);  
-	    return this.getList().count(Page.searchTearm) - anotherPageRank;    
+	    int pageRank = this.getList().count(Page.searchTerm);
+		int anotherPageRank = ((Page) anotherPage).getList().count(Page.searchTerm);  
+	    return( pageRank > anotherPageRank ? 1 : (pageRank == anotherPageRank ? 0 : -1));    
 	}
-	public void treeWalk() {
-        treeWalk( this.document.getRootElement() );
+	public void populate() {
+        populate( this.document.getRootElement() );
     }
-    private void treeWalk(Element element) {
+    private void populate(Element element) {
     		for ( int i = 0, size = element.nodeCount(); i < size; i++ ) {
             Node node = element.node(i);
             if ( node instanceof Element ) {
-                treeWalk( (Element) node );
+                populate( (Element) node );
             }
             else {
             		String string = node.getText();
@@ -44,5 +47,4 @@ public class Page implements Comparable {
             }
         }
     }
-
 }
