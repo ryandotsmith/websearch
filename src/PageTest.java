@@ -71,6 +71,8 @@ public class PageTest extends TestCase {
 		Collections.sort(array, new PageComparator());
 		assertEquals( pageThree, array.get(0) );
 	}
-
+	public void testGettingTheTitleFromTheDom(){
+		assertEquals( "test.html", testPage.getTitle() );
+	}
 }
 	

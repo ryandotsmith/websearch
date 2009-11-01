@@ -10,4 +10,5 @@ public interface InternetDocument {
 	// Perhaps this should be a Document? 
 	// TODO: Decide what data type the HTML rendering engine requires 
 	public abstract String getText();
+	public abstract String getTitle();
 }

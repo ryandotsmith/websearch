@@ -27,19 +27,24 @@ public class InternetTest extends TestCase {
 		arr.add(pageOne);
 		arr.add(pageTwo);
 		arr.add(pageThree);
-		assertEquals( arr,testInternet.query("Title") );
+		assertEquals( arr,testInternet.query("Title"));
 	}
 	public void testQueryWithPagesThatHaveDifferentWordCounts() throws DocumentException{
 		Page pageOne   = new Page("test.html");
 		Page pageTwo   = new Page("test.html");
 		Page pageThree = new Page("test.html");
+		pageThree.getList().insert("Title");
 		ArrayList arr  = new ArrayList();
 		testInternet.addPage(pageOne);
 		testInternet.addPage(pageTwo);
 		testInternet.addPage(pageThree);
+		arr.add(pageThree);
 		arr.add(pageOne);
 		arr.add(pageTwo);
-		arr.add(pageThree);
-		assertEquals( arr,testInternet.query("Title") );		
+		assertEquals( arr,testInternet.query("Title"));		
+	}
+	public void testQueryThatHasZeroSearchResults() throws DocumentException {
+		Page pageOne   = new Page("test.html");
+		assertEquals( new ArrayList(), testInternet.query("NotInPage") );
 	}
 }
