@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -34,6 +35,12 @@ public class PageTest extends TestCase {
 	}
 	public void testGetDocument(){
 		assertTrue( testPage.getDocument() instanceof DefaultDocument);
+		try{
+			assertEquals( "42", testPage.getText());	
+		}catch( IOException e ){
+			;
+		}
+		
 	}
 	public void testTheComparisonWhenTheComparisonDoesNotMakeSense() throws ClassCastException{
 		try{

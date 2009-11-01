@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 import java.util.StringTokenizer;
 import org.dom4j.*;
@@ -10,11 +12,12 @@ public class Page implements InternetDocument,Comparable  {
 	private WordList list;
 	private Document document;
 	private String title;
+	private File file;
 	
 	public Page(String fileName) throws DocumentException{	
 	    this.list = new WordList();
 		this.title = fileName;
-	    File file = new File(fileName);
+	    this.file = new File(fileName);
 		SAXReader xmlReader = new SAXReader();
 		this.document = xmlReader.read(file);
 		crawl();
@@ -22,9 +25,24 @@ public class Page implements InternetDocument,Comparable  {
 
 	public WordList getList() 		{return this.list;}
 	public Document getDocument() 	{return this.document;}
-	public String getText()			{return "TODO";}
+//	public String getText()			{return file.;}
 	public String getTitle()			{return title;}
 
+	public String getText() throws java.io.IOException {
+        StringBuffer fileData = new StringBuffer(1000);
+        BufferedReader reader = new BufferedReader(
+                new FileReader(this.file));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            fileData.append(buf, 0, numRead);
+        }
+        reader.close();
+        return fileData.toString();
+    }
+
+	
+	
 	public int compareTo(Object anotherPage) throws ClassCastException {
 		if (!(anotherPage instanceof Page))
 	      throw new ClassCastException("A Page object expected.");

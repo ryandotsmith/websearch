@@ -7,6 +7,7 @@ import javax.swing.event.ListSelectionListener;
 
 import java.awt.Container;
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.dom4j.DocumentException;
@@ -18,7 +19,6 @@ public class GUI extends JFrame
 	private ArrayList<Page> searchResults;
 	private Internet internet;
 	private Integer selectedRow;
-	//Element searchTerm = new Element;
 	public GUI()
 	{
 		try{
@@ -60,15 +60,19 @@ public class GUI extends JFrame
 		{
 			public void actionPerformed(ActionEvent event) 
 			{
-				JFrame f = new JFrame("Testing");
+				Page selectedPage = searchResults.get(selectedRow-1); 
+				JFrame f = new JFrame(selectedPage.getTitle());
 			    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			    JEditorPane editor = new JEditorPane( "text/html", searchResults.get(selectedRow-1).getText());
-			    editor.setEditable(false);
-			    JScrollPane scrollPane = new JScrollPane(editor);
-			    f.add(scrollPane, BorderLayout.CENTER);
-			    f.setSize(800, 600);
-			    f.setVisible(true);
-				
+			    try{
+			    		JEditorPane editor = new JEditorPane( "text/html", selectedPage.getText());	
+					    editor.setEditable(false);
+					    JScrollPane scrollPane = new JScrollPane(editor);
+					    f.add(scrollPane, BorderLayout.CENTER);
+					    f.setSize(800, 600);
+					    f.setVisible(true);
+			    }catch(IOException e){
+			    		;
+			    }				
 			}
 			
 		});
