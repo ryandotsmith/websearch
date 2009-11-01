@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public interface Searchable {	
 	public abstract Collection<Page> query(String searchString);
-	public abstract Boolean addPage(Page newPage);
+	public abstract void addPage(Page newPage);
 }
 
 
