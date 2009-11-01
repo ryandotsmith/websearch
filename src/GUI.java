@@ -2,8 +2,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Container;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 
 import org.dom4j.DocumentException;
 
@@ -11,11 +15,16 @@ public class GUI extends JFrame
 {
 	private DefaultListModel listModel;
 	private JList list;
+	private ArrayList<Page> searchResults;
+	private Internet internet;
+	private Integer selectedRow;
 	//Element searchTerm = new Element;
 	public GUI()
 	{
 		try{
 			Page page = new Page("test.html");
+			internet = new Internet();
+			internet.addPage(page);
 		}catch(DocumentException e){
 			System.out.println("Page does not exist!");
 		}
@@ -34,20 +43,26 @@ public class GUI extends JFrame
 			public void actionPerformed( ActionEvent event )
 			{
 				String term = JOptionPane.showInputDialog(GUI.this, "Enter search term here" );
-				//listModel.addElement(page.searchTerm);				
+				searchResults = (ArrayList<Page>) internet.query(term);
+				for( Page page : searchResults )
+					listModel.addElement(page.getTitle());
 			}
 		}
 		);
-		
+
+		list.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				selectedRow = list.getSelectedIndex();
+			}
+		} );
+
 		renderPage.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event) 
 			{
 				JFrame f = new JFrame("Testing");
 			    f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			    
-			    //JEditorPane editor = new JEditorPane("text/html",Internet.query(pageOne.getText()));
-			    JEditorPane editor = new JEditorPane( "text/html", "<H3>Help</H3><center>www.java2s.com</center><li>One<li><i>Two</i><li><u>Three</u>");
+			    JEditorPane editor = new JEditorPane( "text/html", searchResults.get(selectedRow-1).getText());
 			    editor.setEditable(false);
 			    JScrollPane scrollPane = new JScrollPane(editor);
 			    f.add(scrollPane, BorderLayout.CENTER);
@@ -57,6 +72,7 @@ public class GUI extends JFrame
 			}
 			
 		});
+		
 
 
 
