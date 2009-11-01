@@ -17,10 +17,11 @@ public class PageTest extends TestCase {
 	public void testExceptionGetsThrownOnBadFileName() throws DocumentException{
 		try{
 			Page blah = new Page("bad_file_name");
+			fail("Should raise an exception");
 		}catch(DocumentException e){
-			return;
+			;
 		}
-		fail("Should raise an exception");
+		
 	}
 	public void testThatTheConstructorHasReadTheFile(){
 		assertEquals(1,testPage.getList().count("Title"));
@@ -33,6 +34,14 @@ public class PageTest extends TestCase {
 	}
 	public void testGetDocument(){
 		assertTrue( testPage.getDocument() instanceof DefaultDocument);
+	}
+	public void testTheComparisonWhenTheComparisonDoesNotMakeSense() throws ClassCastException{
+		try{
+			testPage.compareTo(42);
+			fail("Should have raised exception");
+		}catch( ClassCastException e ){
+			;
+		}		
 	}
 	public void testTheComparisonOfPages() throws DocumentException{
 		testPage.getList().insert("nice");
@@ -61,6 +70,10 @@ public class PageTest extends TestCase {
 		assertEquals( 0, pageOne.compareTo(pageTwo));
 		Collections.sort(array, new PageComparator());
 		assertEquals( pageThree, array.get(0) );
+	}
+
+	public void testSortWhenThereAreNoResults(){
+		
 	}
 
 }
