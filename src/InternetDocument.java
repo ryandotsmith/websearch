@@ -1,4 +1,9 @@
-import org.dom4j.Document;
+// Usage:
+//Page pageOne = new Page(fileName);
+// PageData returns HTML 
+// pageOne.getPageData(); => <html><body><h1>Test</h1></body></html> 
+
+
 
 public interface InternetDocument {
 	// PageData is the HTML data
