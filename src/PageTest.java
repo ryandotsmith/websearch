@@ -72,9 +72,5 @@ public class PageTest extends TestCase {
 		assertEquals( pageThree, array.get(0) );
 	}
 
-	public void testSortWhenThereAreNoResults(){
-		
-	}
-
 }
 	

@@ -22,7 +22,7 @@ public class Page implements InternetDocument,Comparable  {
 	}
 	public WordList getList() 		{return this.list;}
 	public Document getDocument() 	{return this.document;}
-	public String getPageData()		{return "TODO";}
+	public String getText()			{return "TODO";}
 	public int compareTo(Object anotherPage) throws ClassCastException {
 		if (!(anotherPage instanceof Page))
 	      throw new ClassCastException("A Page object expected.");
