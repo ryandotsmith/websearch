@@ -20,7 +20,7 @@ public class InternetTest extends TestCase {
 		Page pageOne   = new Page("test.html");
 		Page pageTwo   = new Page("test.html");
 		Page pageThree = new Page("test.html");
-		ArrayList arr  = new ArrayList();
+		ArrayList<Page> arr  = new ArrayList<Page>();
 		testInternet.addPage(pageOne);
 		testInternet.addPage(pageTwo);
 		testInternet.addPage(pageThree);
@@ -34,7 +34,7 @@ public class InternetTest extends TestCase {
 		Page pageTwo   = new Page("test.html");
 		Page pageThree = new Page("test.html");
 		pageThree.getList().insert("Title");
-		ArrayList arr  = new ArrayList();
+		ArrayList<Page> arr  = new ArrayList<Page>();
 		testInternet.addPage(pageOne);
 		testInternet.addPage(pageTwo);
 		testInternet.addPage(pageThree);
@@ -45,6 +45,37 @@ public class InternetTest extends TestCase {
 	}
 	public void testQueryThatHasZeroSearchResults() throws DocumentException {
 		Page pageOne   = new Page("test.html");
-		assertEquals( new ArrayList(), testInternet.query("NotInPage") );
+		assertEquals( new ArrayList<Page>(), testInternet.query("NotInPage") );
+	}
+	public void testQueryThatHasMultipleSearchTerms() throws DocumentException{
+		Page pageOne   = new Page("test.html");
+		Page pageTwo   = new Page("test.html");
+		Page pageThree = new Page("test.html");
+		pageThree.getList().insert("Red");
+		pageOne.getList().insert("Red");
+		ArrayList<Page> arr  = new ArrayList<Page>();
+		testInternet.addPage(pageOne);
+		testInternet.addPage(pageTwo);
+		testInternet.addPage(pageThree);
+		arr.add(pageOne);
+		arr.add(pageThree);
+		ArrayList<String> input = testInternet.clean("Page Title Red");
+		assertEquals( arr,testInternet.query(input));				
+	}
+	public void testCleaningQueryInputWithOneTerm() throws DocumentException {
+		Page pageOne = new Page("test.html");
+		testInternet.addPage(pageOne);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("Title");
+		assertEquals(expected,testInternet.clean("Title"));		
+	}
+	public void testCleaningQueryInputWithTwoTerms() throws DocumentException{
+		Page pageOne = new Page("test.html");
+		testInternet.addPage(pageOne);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("Page");
+		expected.add("Title");
+		assertEquals(expected,testInternet.clean("Page Title"));
+		
 	}
 }

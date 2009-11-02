@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
+
 public class Page implements InternetDocument,Comparable  {
 
 	public static String searchTerm;
@@ -24,11 +25,9 @@ public class Page implements InternetDocument,Comparable  {
 		crawl();
 	}
 
-	public WordList getList() 		{return this.list;}
+	public WordList getList() 		{return this.list;    }
 	public Document getDocument() 	{return this.document;}
-//	public String getText()			{return file.;}
-	public String getTitle()			{return title;}
-
+	public String getTitle()			{return title;        }
 	public String getText() throws java.io.IOException {
         StringBuffer fileData = new StringBuffer(1000);
         BufferedReader reader = new BufferedReader(
@@ -40,10 +39,7 @@ public class Page implements InternetDocument,Comparable  {
         }
         reader.close();
         return fileData.toString();
-    }
-
-	
-	
+    }	
 	public int compareTo(Object anotherPage) throws ClassCastException {
 		if (!(anotherPage instanceof Page))
 	      throw new ClassCastException("A Page object expected.");
