@@ -22,9 +22,11 @@ public class GUI extends JFrame
 	public GUI()
 	{
 		try{
-			Page page = new Page("test.html");
+			Page pageOne = new Page("test.html");
+			Page pageTwo = new Page("dom4j.html");
 			internet = new Internet();
-			internet.addPage(page);
+			internet.addPage(pageOne);
+			internet.addPage(pageTwo);
 		}catch(DocumentException e){
 			System.out.println("Page does not exist!");
 		}

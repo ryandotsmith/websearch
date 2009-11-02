@@ -19,6 +19,7 @@ public class Page implements InternetDocument,Comparable  {
 		this.title = fileName;
 	    this.file = new File(fileName);
 		SAXReader xmlReader = new SAXReader();
+		xmlReader.setValidation(false);
 		this.document = xmlReader.read(file);
 		crawl();
 	}
