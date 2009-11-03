@@ -1,12 +1,13 @@
-// Usage:
-//Page pageOne = new Page(fileName);
+//* Usage:
+//  Page pageOne = new Page(fileName);
 //
-//Internet internet = new Internet();
-//internet.addPage(PageOne);
+//  Internet internet = new Internet();
+//  internet.addPage(PageOne);
 //
 // The pages are returned in descending order
 // An empty array is returned if there are no search results
-// internet.query("dog"); => [ pageOne, pageTwo, etc....] 
+//    internet.query("dog"); => [ pageOne, pageTwo, etc....]
+//    internet.query("dog cat"); => [ pageOne, pageTwo, etc....]
 
 
 

@@ -5,6 +5,8 @@ import java.io.IOException;
 // PageData returns HTML 
 // pageOne.getPageData(); => '<html><body><h1>Test</h1></body></html>' 
 
+// To get the count of a word in a Page 
+// pageOne.getList().count("word"); => retuns a count of the word: "word" 
 
 
 public interface InternetDocument {

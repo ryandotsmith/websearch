@@ -36,7 +36,7 @@ public class PageTest extends TestCase {
 	public void testGetDocument(){
 		assertTrue( testPage.getDocument() instanceof DefaultDocument);
 		try{
-			assertEquals( "42", testPage.getText());	
+			assertEquals( "<html><head><title>Page Title</title></head><body><h1>Content</h1></body></html>", testPage.getText());	
 		}catch( IOException e ){
 			;
 		}

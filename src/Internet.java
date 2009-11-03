@@ -15,6 +15,8 @@ public class Internet implements Searchable {
 	}
 	@Override
 	public Collection<Page> query(String searchString) {
+		if(searchString.length() > 1 )
+			return( query(clean(searchString)));
 		Page.searchTerm = searchString;
 		Collection<Page> results = new ArrayList<Page>();
 		for( Page page : pages)

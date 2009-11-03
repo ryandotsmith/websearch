@@ -59,8 +59,7 @@ public class InternetTest extends TestCase {
 		testInternet.addPage(pageThree);
 		arr.add(pageOne);
 		arr.add(pageThree);
-		ArrayList<String> input = testInternet.clean("Page Title Red");
-		assertEquals( arr,testInternet.query(input));				
+		assertEquals( arr,testInternet.query("Page Title Red"));				
 	}
 	public void testCleaningQueryInputWithOneTerm() throws DocumentException {
 		Page pageOne = new Page("test.html");
